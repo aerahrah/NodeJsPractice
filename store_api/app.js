@@ -1,9 +1,11 @@
+require('dotenv').config();
+require('express-async-errors');
+
 const express = require('express');
 const app = express();
 const connectDB = require('./db/connect');
 console.log('04 Store API');
 
-require('dotenv').config();
 const productRouter = require('./routes/products');
 
 
@@ -13,6 +15,7 @@ app.get('/', (req, res) => {
   });
 
 app.use('api/v1/products', productRouter);
+
 port = 3000;
 
 const start = async()=>{
