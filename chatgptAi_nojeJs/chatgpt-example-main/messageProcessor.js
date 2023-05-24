@@ -26,7 +26,11 @@ async function processMessages(messages) {
 
   return generatedMessagesResponse;
 }
+function getConversation() {
+  return conversation;
+}
 
 module.exports = {
   processMessages,
+  getConversation,
 };
