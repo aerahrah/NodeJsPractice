@@ -1,12 +1,13 @@
 const express = require("express");
-const { Configuration, OpenAIApi } = require("openai");
 const app = express();
 const port = 3500;
 const { processMessages } = require("./messageProcessor");
+const fileUpload = require("express-fileupload");
 
 require("dotenv").config();
 
 app.use(express.json());
+app.use(fileUpload());
 
 const uploadRoute = require("./routes/upload");
 const uploadAutoRoute = require("./routes/uploadAutoGenerateSeo");
