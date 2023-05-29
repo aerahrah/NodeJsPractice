@@ -14,7 +14,6 @@ async function processMessages(messages) {
     }),
   });
   const responseData = await response.json();
-  console.log(responseData);
   const generatedMessages = responseData.choices.map((choice) => ({
     role: "assistant",
     content: choice.message.content,

@@ -40,7 +40,16 @@ module.exports = (processMessages) => {
           fs.unlinkSync(filePath);
           messages.push({
             role: "user",
-            content: `Generate SEO keyword for every products on this list. Include the name alongside its SEO keyword${csvDataString}`,
+            content: `
+            
+            Generate SEO keyword for every products on this list. Include the name alongside its SEO keyword 
+        
+            Output in JSON data and in this format:
+
+            {
+              keywords: []
+            }
+            ${csvDataString}`,
           });
 
           const response = await processMessages(messages);
