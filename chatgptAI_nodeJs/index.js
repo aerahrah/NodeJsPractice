@@ -16,11 +16,13 @@ app.use("/auth", authRouter);
 const generateSeoKeywordsUser = require("./routes/GenerateSeoKeywordsRoutes");
 const generateSeoKeywordsCSV = require("./routes/GenerateSeoKeywordsRoutes");
 const generateMediaPostUser = require("./routes/GenerateMediaPostRoutes");
+const generateAcquisitionUser = require("./routes/UserAcquisitionRoute");
 const getConversationRoute = require("./routes/GetConversation");
 
 app.use("/getConversation", getConversationRoute);
 app.use("/generate-seo-keywords", generateSeoKeywordsUser);
 app.use("/generate-media-post", generateMediaPostUser);
+app.use("/generate-user-acquisition", generateAcquisitionUser);
 app.use("/generate-seo-keywords-csv", generateSeoKeywordsCSV);
 
 const start = async () => {
