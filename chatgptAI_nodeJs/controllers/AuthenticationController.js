@@ -1,14 +1,11 @@
-const express = require("express");
 const bcrypt = require("bcrypt");
-const router = express.Router();
-const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userSchema");
 require("dotenv").config();
 
 const secretKey = process.env.SECRET_KEY;
-// Sign-up endpoint
-router.post("/signup", async (req, res) => {
+
+const signup = async (req, res) => {
   try {
     const { username, password } = req.body;
 
@@ -33,10 +30,9 @@ router.post("/signup", async (req, res) => {
     console.error("Error signing up:", error);
     res.status(500).json({ message: "An error occurred" });
   }
-});
+};
 
-// Sign-in endpoint
-router.post("/signin", async (req, res) => {
+const signin = async (req, res) => {
   try {
     const { username, password } = req.body;
 
@@ -60,6 +56,6 @@ router.post("/signin", async (req, res) => {
     console.error("Error signing in:", error);
     res.status(500).json({ message: "An error occurred" });
   }
-});
+};
 
-module.exports = router;
+module.exports = { signup, signin };

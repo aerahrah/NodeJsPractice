@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3500;
 const { processMessages } = require("./messageProcessor");
-const authRouter = require("./routes/Authentication");
+const authRouter = require("./routes/AuthenticationRoute");
 const fileUpload = require("express-fileupload");
 
 const connectDB = require("./db/connectDb");
@@ -13,15 +13,15 @@ app.use(express.json());
 app.use(fileUpload());
 app.use("/auth", authRouter);
 
-const GenerateSeoRoute_CSV = require("./routes/GenerateSeoKeywords_CSV");
-const GenerateMediaPost = require("./routes/GenerateMediaPost.js");
-const GenerateSeoRoute = require("./routes/GenerateSeoKeywords_UserInput");
+const generateSeoKeywordsUser = require("./routes/GenerateSeoKeywordsRoutes");
+const generateSeoKeywordsCSV = require("./routes/GenerateSeoKeywordsRoutes");
+const generateMediaPostUser = require("./routes/GenerateMediaPostRoutes");
 const getConversationRoute = require("./routes/GetConversation");
 
-app.use("/generate-media-post", GenerateMediaPost(processMessages));
-app.use("/generate-seo-keywords-csv", GenerateSeoRoute_CSV(processMessages));
-app.use("/generate-seo-keywords", GenerateSeoRoute(processMessages));
 app.use("/getConversation", getConversationRoute);
+app.use("/generate-seo-keywords", generateSeoKeywordsUser);
+app.use("/generate-media-post", generateMediaPostUser);
+app.use("/generate-seo-keywords-csv", generateSeoKeywordsCSV);
 
 const start = async () => {
   try {
