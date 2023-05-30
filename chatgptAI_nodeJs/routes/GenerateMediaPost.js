@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const authenticate = require("../middleware/auth");
 
 module.exports = (processMessages) => {
-  router.post("/", async (req, res) => {
+  router.post("/", authenticate, async (req, res) => {
     const { message } = req.body;
     const messages = [
       {
@@ -19,5 +20,6 @@ module.exports = (processMessages) => {
     console.log(response);
     res.json({ message: response });
   });
+
   return router;
 };

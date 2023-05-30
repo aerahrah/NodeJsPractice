@@ -2,12 +2,16 @@ const express = require("express");
 const app = express();
 const port = 3500;
 const { processMessages } = require("./messageProcessor");
+const authRouter = require("./routes/Authentication");
 const fileUpload = require("express-fileupload");
+
+const connectDB = require("./db/connectDb");
 
 require("dotenv").config();
 
 app.use(express.json());
 app.use(fileUpload());
+app.use("/auth", authRouter);
 
 const GenerateSeoRoute_CSV = require("./routes/GenerateSeoKeywords_CSV");
 const GenerateMediaPost = require("./routes/GenerateMediaPost.js");
@@ -19,6 +23,15 @@ app.use("/generate-seo-keywords-csv", GenerateSeoRoute_CSV(processMessages));
 app.use("/generate-seo-keywords", GenerateSeoRoute(processMessages));
 app.use("/getConversation", getConversationRoute);
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI);
+    app.listen(port, () => {
+      console.log(`Server is listening to port ${port}....`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
