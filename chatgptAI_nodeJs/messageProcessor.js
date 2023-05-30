@@ -1,7 +1,10 @@
 let conversation = [];
 require("dotenv").config();
+const Conversation = require("./models/conversationSchema");
 
-async function processMessages(messages) {
+async function processMessages(req, messages) {
+  const userId = req.user.id;
+  console.log(`userId  ${userId}`);
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
@@ -20,7 +23,14 @@ async function processMessages(messages) {
   }));
 
   conversation.push(...messages, ...generatedMessages);
-
+  const conversationData = [...messages, ...generatedMessages].map(
+    (message) => ({
+      user: userId,
+      role: message.role,
+      content: message.content,
+    })
+  );
+  await Conversation.insertMany(conversationData);
   const generatedMessagesResponse = responseData.choices[0].message.content;
 
   return generatedMessagesResponse;

@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const authenticate = require("../middleware/auth");
 
 module.exports = (processMessages) => {
-  router.post("/", async (req, res) => {
+  router.post("/", authenticate, async (req, res) => {
     const { message } = req.body;
     const messages = [
       {
@@ -19,7 +20,7 @@ module.exports = (processMessages) => {
       },
     ];
 
-    const response = await processMessages(messages);
+    const response = await processMessages(req, messages);
     console.log(response);
     res.json({ message: response });
   });

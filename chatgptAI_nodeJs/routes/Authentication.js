@@ -26,7 +26,7 @@ router.post("/signup", async (req, res) => {
     await newUser.save();
 
     // Generate a token
-    const token = jwt.sign({ username }, secretKey);
+    const token = jwt.sign({ id: newUser._id, username }, secretKey);
     res.header("Authorization", `Bearer ${token}`);
     res.json({ message: "User registered successfully", token });
   } catch (error) {
@@ -53,7 +53,7 @@ router.post("/signin", async (req, res) => {
     }
 
     // Generate a token
-    const token = jwt.sign({ username }, secretKey);
+    const token = jwt.sign({ id: user._id, username }, secretKey);
     res.header("Authorization", `Bearer ${token}`);
     res.json({ message: "User signed in successfully", token });
   } catch (error) {

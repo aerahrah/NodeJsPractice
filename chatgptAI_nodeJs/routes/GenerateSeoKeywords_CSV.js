@@ -1,10 +1,11 @@
 const express = require("express");
 const csvParser = require("csv-parser");
 const fs = require("fs");
+const authenticate = require("../middleware/auth");
 
 const router = express.Router();
 module.exports = (processMessages) => {
-  router.post("/", async (req, res) => {
+  router.post("/", authenticate, async (req, res) => {
     if (!req.files || !req.files.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
@@ -52,7 +53,7 @@ module.exports = (processMessages) => {
             ${csvDataString}`,
           });
 
-          const response = await processMessages(messages);
+          const response = await processMessages(req, messages);
 
           res.json({ message: response });
         });

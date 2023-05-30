@@ -16,7 +16,7 @@ module.exports = (processMessages) => {
       },
     ];
 
-    const response = await processMessages(messages);
+    const response = await processMessages(req, messages);
     console.log(response);
     res.json({ message: response });
   });
