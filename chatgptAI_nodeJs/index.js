@@ -13,17 +13,28 @@ app.use(express.json());
 app.use(fileUpload());
 app.use("/auth", authRouter);
 
-const generateSeoKeywordsUser = require("./routes/GenerateSeoKeywordsRoutes");
-const generateSeoKeywordsCSV = require("./routes/GenerateSeoKeywordsRoutes");
+const generateSeoKeywords = require("./routes/GenerateSeoKeywordsRoutes");
 const generateMediaPostUser = require("./routes/GenerateMediaPostRoutes");
 const generateAcquisitionUser = require("./routes/UserAcquisitionRoute");
-const getConversationRoute = require("./routes/GetConversation");
+const customerReviewInsightUser = require("./routes/CustomerReviewInsightRoute");
+const getConversationRoute = require("./routes/GetConversationRoute");
+const generateRevenueActivityInsight = require("./routes/RevenueActivityInsight");
+const categorize_review_message = require("./routes/categorize-review-message");
+const generateProductRecommendation = require("./routes/productCopyRecommendationRoute");
+const categorize_review_csv = require("./routes/categorize-review-csvfile");
+const productFeatureSuggestion = require("./routes/productFeatureSuggestionRoute.js");
 
+app.use("/product-copy-recommendation", generateProductRecommendation);
 app.use("/getConversation", getConversationRoute);
-app.use("/generate-seo-keywords", generateSeoKeywordsUser);
+app.use("/generate-seo-keywords", generateSeoKeywords);
 app.use("/generate-media-post", generateMediaPostUser);
 app.use("/generate-user-acquisition", generateAcquisitionUser);
-app.use("/generate-seo-keywords-csv", generateSeoKeywordsCSV);
+app.use("/generate-revenue-activity-insight", generateRevenueActivityInsight);
+app.use("/generate-customer-review-csv", customerReviewInsightUser);
+app.use("/", categorize_review_message);
+app.use("/", categorize_review_csv);
+app.use("/product-feature-suggestion",productFeatureSuggestion);
+
 
 const start = async () => {
   try {

@@ -20,7 +20,6 @@ const generateSeoKeywordsUser = (processMessages) => async (req, res) => {
   ];
 
   const response = await processMessages(req, messages);
-  console.log(response);
   res.json({ message: response });
 };
 
@@ -51,7 +50,7 @@ const generateSeoKeywordsCSV = (processMessages) => async (req, res) => {
     fs.createReadStream(filePath)
       .pipe(csvParser())
       .on("data", (data) => {
-        const message = data.Name;
+        const message = data.Names;
         if (message) {
           csvDataString += `${message} \n`;
         }
