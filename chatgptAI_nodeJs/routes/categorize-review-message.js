@@ -4,12 +4,14 @@ const authenticate = require("../middleware/auth");
 
 const router = express.Router();
 const openaiApiKey = process.env.OPENAI_API_KEY;
+const { getPromptFeature } = require("../controllers/promptController");
 
 let conversation = [];
 require("dotenv").config();
 const Conversation = require("../models/conversationSchema");
 
 router.post("/chat-categorize-review", authenticate, async (req, res) => {
+  const promptFeature = await getPromptFeature("categorizeReview");
   const { message } = req.body;
 
   // Validate request body
@@ -20,11 +22,7 @@ router.post("/chat-categorize-review", authenticate, async (req, res) => {
   const messages = [
     {
       role: "user",
-      content: `Given the Data below, categorize the review into positive, negative, mixed, or neutral. The answer should only be "Positive", "Negative", "Mixed", or "Neutral".
-        Output in JSON data in this format:
-        {
-          answer: []
-        }`,
+      content: promptFeature,
     },
     { role: "user", content: message },
   ];

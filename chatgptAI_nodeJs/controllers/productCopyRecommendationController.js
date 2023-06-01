@@ -1,7 +1,9 @@
 const csvParser = require("csv-parser");
 const fs = require("fs");
+const { getPromptFeature } = require("../controllers/promptController");
 
 const generateProductRecommendation = (processMessages) => async (req, res) => {
+  const promptFeature = await getPromptFeature("productCopyRecommendation");
   const product = req.body.product || "";
   console.log(`hello:  ${product}`);
   if (product.trim().length === 0) {
@@ -20,7 +22,7 @@ const generateProductRecommendation = (processMessages) => async (req, res) => {
     },
     {
       role: "user",
-      content: generateProductRecommendationPrompt(product),
+      content: `${promptFeature} ${product}`,
     },
   ];
 
@@ -31,16 +33,15 @@ const generateProductRecommendation = (processMessages) => async (req, res) => {
 
 const generateProductRecommendationCSV =
   (processMessages) => async (req, res) => {
+    const promptFeature = await getPromptFeature(
+      "productCopyRecommendationCSV"
+    );
     if (!req.files || !req.files.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
     const file = req.files.file;
-    const prompt = `Recommend list of twenty product copy WITHOUT DESCRIPTION using this data set, using format like this:
-      These are the top 20 product copy based on the given data set:
-      1. Product  
-      2. Product  
-      3. Product 
+    const prompt = `
     `;
     if (file.mimetype !== "text/csv") {
       return res
@@ -71,7 +72,7 @@ const generateProductRecommendationCSV =
           fs.unlinkSync(filePath);
           messages.push({
             role: "user",
-            content: prompt + "\nFile Content:\n" + csvDataString,
+            content: promptFeature + "\nFile Content:\n" + csvDataString,
           });
 
           // Call the processMessages function from the main file
@@ -81,14 +82,6 @@ const generateProductRecommendationCSV =
         });
     });
   };
-
-const generateProductRecommendationPrompt = (prompt) => {
-  return `Recommend me twenty product copy of ${prompt} with NO description with this format:
-  These are the top 20 product copy based on the given product:
-  1. product_name
-  2. product_name
-  3. product_name`;
-};
 
 module.exports = {
   generateProductRecommendation,

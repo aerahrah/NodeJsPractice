@@ -1,4 +1,7 @@
+const { getPromptFeature } = require("../controllers/promptController");
+
 const generateMediaPostUser = (processMessages) => async (req, res) => {
+  const promptFeature = await getPromptFeature("generateMediaPost");
   const { message } = req.body;
   const messages = [
     {
@@ -7,7 +10,7 @@ const generateMediaPostUser = (processMessages) => async (req, res) => {
     },
     {
       role: "user",
-      content: `Generate social media marketing post of this data: ${message}.`,
+      content: `${promptFeature} ${message}`,
     },
   ];
 

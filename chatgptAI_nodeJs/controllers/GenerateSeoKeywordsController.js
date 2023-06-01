@@ -1,7 +1,11 @@
 const csvParser = require("csv-parser");
 const fs = require("fs");
+const { getPromptFeature } = require("../controllers/promptController");
 
 const generateSeoKeywordsUser = (processMessages) => async (req, res) => {
+  const promptFeature = await getPromptFeature("generateSeoKeywords");
+
+  console.log(promptFeature);
   const { message } = req.body;
   console.log("laksdflsdakjf");
   const messages = [
@@ -11,19 +15,17 @@ const generateSeoKeywordsUser = (processMessages) => async (req, res) => {
     },
     {
       role: "user",
-      content: `Generate related SEO Keywords for this data: ${message} and output it in this format:
-        {
-          keywords: []
-        }
-        `,
+      content: `${promptFeature} ${message}`,
     },
   ];
-
+  console.log(messages);
   const response = await processMessages(req, messages);
+
   res.json({ message: response });
 };
 
 const generateSeoKeywordsCSV = (processMessages) => async (req, res) => {
+  const promptFeature = await getPromptFeature("generateSeoKeywordsCSV");
   if (!req.files || !req.files.file) {
     return res.status(400).json({ error: "No file uploaded" });
   }
@@ -59,16 +61,7 @@ const generateSeoKeywordsCSV = (processMessages) => async (req, res) => {
         fs.unlinkSync(filePath);
         messages.push({
           role: "user",
-          content: `
-            
-            Generate SEO keyword for every products on this list. Include the name alongside its SEO keyword 
-        
-            Output in JSON data and in this format:
-
-            {
-              keywords: []
-            }
-            ${csvDataString}`,
+          content: `${promptFeature} ${csvDataString}`,
         });
 
         // Call the processMessages function from the main file

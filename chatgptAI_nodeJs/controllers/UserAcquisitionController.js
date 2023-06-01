@@ -1,4 +1,7 @@
+const { getPromptFeature } = require("../controllers/promptController");
+
 const generateUserAcquisitionUser = (processMessages) => async (req, res) => {
+  const promptFeature = await getPromptFeature("generateUserAcquisition");
   const { message } = req.body;
   const messages = [
     {
@@ -7,7 +10,7 @@ const generateUserAcquisitionUser = (processMessages) => async (req, res) => {
     },
     {
       role: "user",
-      content: `Generate insights of this user acquisition activity of this data: ${message}.`,
+      content: `${promptFeature} ${message}`,
     },
   ];
 

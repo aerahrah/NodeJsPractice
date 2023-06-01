@@ -7,12 +7,14 @@ const authenticate = require("../middleware/auth");
 
 const router = express.Router();
 const openaiApiKey = process.env.OPENAI_API_KEY;
+const { getPromptFeature } = require("../controllers/promptController");
 
 let conversation = [];
 require("dotenv").config();
 const Conversation = require("../models/conversationSchema");
 
 router.post("/upload-csv-categorize-review", authenticate, async (req, res) => {
+  const promptFeature = await getPromptFeature("categorizeReview");
   if (!req.files || !req.files.csvFile) {
     return res.status(400).json({ error: "CSV file is required" });
   }
@@ -70,11 +72,7 @@ router.post("/upload-csv-categorize-review", authenticate, async (req, res) => {
           const messages = [
             {
               role: "user",
-              content: `Given the Data below, categorize the review into positive, negative, mixed, or neutral. The answer should only be "Positive", "Negative", "Mixed", or "Neutral".
-                Output in JSON data in this format:
-                {
-                  answer: []
-                }`,
+              content: promptFeature,
             },
             { role: "user", content: reviewsString },
           ];

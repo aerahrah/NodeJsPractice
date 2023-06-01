@@ -24,6 +24,7 @@ const generateProductRecommendation = require("./routes/productCopyRecommendatio
 const categorize_review_csv = require("./routes/categorize-review-csvfile");
 const productFeatureSuggestion = require("./routes/productFeatureSuggestionRoute.js");
 
+app.use("/prompt", require("./routes/PromptRoute"));
 app.use("/product-copy-recommendation", generateProductRecommendation);
 app.use("/getConversation", getConversationRoute);
 app.use("/generate-seo-keywords", generateSeoKeywords);
@@ -33,8 +34,7 @@ app.use("/generate-revenue-activity-insight", generateRevenueActivityInsight);
 app.use("/generate-customer-review-csv", customerReviewInsightUser);
 app.use("/", categorize_review_message);
 app.use("/", categorize_review_csv);
-app.use("/product-feature-suggestion",productFeatureSuggestion);
-
+app.use("/product-feature-suggestion", productFeatureSuggestion);
 
 const start = async () => {
   try {

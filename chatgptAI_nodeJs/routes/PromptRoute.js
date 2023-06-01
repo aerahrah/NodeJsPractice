@@ -1,12 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const promptController = require("./promptController");
+const { createPrompt } = require("../controllers/promptController");
 
-router.post("/create-prompt", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
-    const prmptId = req.body.promptId;
+    const promptId = req.body.promptId;
     const promptString = req.body.promptString;
-    await promptController.createPrompt(prmptId, promptString);
+    console.log(promptId);
+    console.log(promptString);
+    await createPrompt(promptId, promptString);
     res.json({ message: "Prompt created successfully" });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

@@ -1,0 +1,39 @@
+[
+  {
+    "prompt_id": "customerReviewInsight",
+    "prompt_feature": "Given the data below,  generate the customer review insight of the review. Output in JSON data in this format, remove the 'insight', and remove all unnecessary spaces: {answer: []}  "
+  },
+  {
+    "prompt_id": "generateMediaPost",
+    "prompt_feature": "Generate social media marketing post of this data:."
+  },
+    {
+    "prompt_id": "generateRevenueInsight",
+    "prompt_feature": "Generate a revenue activity insight by category to the given data set. File Content:"
+  },
+  {
+    "prompt_id": "generateSeoKeywords",
+    "prompt_feature": "Generate related SEO Keywords for the data below and output it in this format: {keywords: []}"
+  },
+    {
+    "prompt_id": "generateSeoKeywordsCSV",
+    "prompt_feature": "Generate SEO keyword for every products on this list. Include the name alongside its SEO keyword Output in JSON data and in this format:{ keywords: [] } "
+  },
+  {
+    "prompt_id": "productCopyRecommendation",
+    "prompt_feature": "Recommend me twenty product copy of data below with NO description with this format: These are the top 20 product copy based on the given product: 1. product_name 2. product_name 3. product_name "
+  },  
+  {
+    "prompt_id": "productCopyRecommendationCSV",
+    "prompt_feature": "Recommend list of twenty product copy WITHOUT DESCRIPTION using this data set, using format like this: These are the top 20 product copy based on the given data set: 1. Product  2. Product  3. Product "
+  },
+  {
+    "prompt_id": "generateUserAcquisition",
+    "prompt_feature": "Generate insights of this user acquisition activity of this data:"
+  },
+  {
+    "prompt_id": "categorizeReview",
+    "prompt_feature": "Given the Data below, categorize the review into positive, negative, mixed, or neutral. The answer should only be 'Positive', 'Negative', 'Mixed', or 'Neutral'. Output in JSON data in this format:{ answer: [] }"
+  }
+]
+

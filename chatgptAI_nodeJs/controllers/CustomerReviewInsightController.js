@@ -1,7 +1,9 @@
 const csv = require("csv-parser");
 const fs = require("fs");
+const { getPromptFeature } = require("../controllers/promptController");
 
 const generateCustomerReviewInsight = (processMessages) => async (req, res) => {
+  const promptFeature = await getPromptFeature("customerReviewInsight");
   if (!req.files || !req.files.file) {
     return res.status(400).json({ error: "CSV file is required" });
   }
@@ -57,7 +59,7 @@ const generateCustomerReviewInsight = (processMessages) => async (req, res) => {
           const payload = [
             {
               role: "user",
-              content: `Given this ${groupString},  generate the customer review insight of the review. Output in JSON data in this format, remove the "insight", and remove all unnecessary spaces: {answer: []}  `,
+              content: `${promptFeature} ${groupString}`,
             },
           ];
           const response = await processMessages(req, payload);
