@@ -6,8 +6,6 @@ router.post("/create", async (req, res) => {
   try {
     const promptId = req.body.promptId;
     const promptString = req.body.promptString;
-    console.log(promptId);
-    console.log(promptString);
     await createPrompt(promptId, promptString);
     res.json({ message: "Prompt created successfully" });
   } catch (error) {

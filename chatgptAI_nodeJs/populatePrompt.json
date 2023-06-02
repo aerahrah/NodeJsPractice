@@ -1,7 +1,7 @@
 [
   {
     "prompt_id": "customerReviewInsight",
-    "prompt_feature": "Given the data below,  generate the customer review insight of the review. Output in JSON data in this format, remove the 'insight', and remove all unnecessary spaces: {answer: []}  "
+    "prompt_feature": "Given the data below,  generate the customer review insight of the review. Output in JSON data in this format, remove the 'insight', and remove all unnecessary spaces: {answer: []} Generate an insight of this review. "
   },
   {
     "prompt_id": "generateMediaPost",
@@ -13,7 +13,7 @@
   },
   {
     "prompt_id": "generateSeoKeywords",
-    "prompt_feature": "Generate related SEO Keywords for the data below and output it in this format: {keywords: []}"
+    "prompt_feature": "Given the provided data, generate a list of related SEO keywords. Format the output as follows: { 'keywords': [] }"
   },
     {
     "prompt_id": "generateSeoKeywordsCSV",
@@ -33,7 +33,26 @@
   },
   {
     "prompt_id": "categorizeReview",
-    "prompt_feature": "Given the Data below, categorize the review into positive, negative, mixed, or neutral. The answer should only be 'Positive', 'Negative', 'Mixed', or 'Neutral'. Output in JSON data in this format:{ answer: [] }"
+    "prompt_feature": "Given the Data below, categorize the review into positive, negative, mixed, or neutral. The answer should only be 'Positive', 'Negative', 'Mixed', or 'Neutral'. Output in JSON data in this format:{ answer: [] }, the next sentence is the review."
+  },
+  {
+    "prompt_id": "productFeatureSuggestionOne",
+    "prompt_feature": "I want you to act as product feature generator with a Marketing Expert or Senior Business Analayst skills that will thinks step by step or debates pros and cons before suggesting an answer. you will give me a new best feature that possible for it. You should also use your rhetorical knowledge and experience in giving the effective product features that is feasible and unique.The prompt should be self-explenatory and appropriate to the product. You will focus on generating the feature and only the feature nothing more nothing less. Make only 3 features and always include a very short explanation along with the feature generated like this: {'FeatureOne': ' ','FeatureTwo': ' ', 'FeatureThree': ' ', }, Strictly, don't generate or include messages that is not part of the given format, also limit the tokens for exactly 20 tokens per features object value, Strictly follow the given format don't change anything on it including the  characters. Just stick to the format that is provided and just generate only the answer do not include any unnecessary words like the number of tokens and any other words. Just strictly follow the format. And the product that you will generate its feature of is:"
+  },
+  {
+    "prompt_id": "productFeatureSuggestionFileOne",
+    "prompt_feature": "I want you to act as a product feature generator with Senior Business Analayst and Senior Data analyst skills that will thinks step by step or debates pros and cons before suggesting an answer. Your suggestion will be based on the json data that I will give you and you will Generate 3 features according those data, Strictly follow the given format don't change anything on it including the characters, Output in JSON data and in this format: {'FeatureOne': ' ','FeatureTwo': ' ', 'FeatureThree': ' ', } Strictly, don't generate or include messages that is not part of the given format, also limit the tokens for exactly 20 tokens per features object value, Strictly follow the given format don't change anything on it including the characters. Just stick to the format that is provided. here is the json data:         Here's the Data"
+  },
+  {
+    "prompt_id": "profanityDetection",
+    "prompt_feature": "Check the paragraph for profanity words and determine if the content or topic is child-friendly."
+  },
+  {
+    "prompt_id": "issuePriotization",
+    "prompt_feature": "Develop a feature to prioritize a list of issues based on their impact and urgency. Assign a priority score to each issue, ranging from 1 to 10, where a higher score indicates a higher priority. Consider factors such as issue severity, potential impact, urgency, and available resources. Output the prioritized issues with their corresponding priority scores in JSON format: { prioritizedIssues: []}"
+  },
+  {
+    "prompt_id": "fakeUserDetailChecker",
+    "prompt_feature": "Check this details and it should be based from Philippines check if this is fake or spam and computer generated: "
   }
 ]
-

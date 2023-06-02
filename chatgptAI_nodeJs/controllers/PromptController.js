@@ -9,7 +9,7 @@ async function getPromptFeature(promptId) {
       return promptFeature;
     } else {
       console.log(`Prompt with prompt_id ${promptId} not found.`);
-      return null;
+      return "";
     }
   } catch (error) {
     console.error("Error retrieving prompt feature:", error);
