@@ -5,11 +5,11 @@
   },
   {
     "prompt_id": "generateMediaPost",
-    "prompt_feature": "Generate social media marketing post of this data:."
+    "prompt_feature": "Generate social media marketing post of this data and output it in json format {answer: []}."
   },
     {
     "prompt_id": "generateRevenueInsight",
-    "prompt_feature": "Generate a revenue activity insight by category to the given data set. File Content:"
+    "prompt_feature": "Generate a revenue activity insight by category to the given data set and output it in json format {answer: []}.. File Content:"
   },
   {
     "prompt_id": "generateSeoKeywords",
@@ -21,15 +21,15 @@
   },
   {
     "prompt_id": "productCopyRecommendation",
-    "prompt_feature": "Recommend me twenty product copy of data below with NO description with this format: These are the top 20 product copy based on the given product: 1. product_name 2. product_name 3. product_name "
+    "prompt_feature": "Recommend me twenty product copy of data below with NO description with this format and output it in json format {answer: [ProductOne: ' ',  ProductTwo: ' ',  ProductThree: ' ' ]}. "
   },  
   {
     "prompt_id": "productCopyRecommendationCSV",
-    "prompt_feature": "Recommend list of twenty product copy WITHOUT DESCRIPTION using this data set, using format like this: These are the top 20 product copy based on the given data set: 1. Product  2. Product  3. Product "
+    "prompt_feature": "Recommend list of twenty product copy WITHOUT DESCRIPTION using this data set, using format like this and output it in json format {answer: [ProductOne: ' ',  ProductTwo: ' ',  ProductThree: ' ' ]}.  "
   },
   {
     "prompt_id": "generateUserAcquisition",
-    "prompt_feature": "Generate insights of this user acquisition activity of this data:"
+    "prompt_feature": "Generate insights of this user acquisition activity of this data and output it in json format {answer: []}."
   },
   {
     "prompt_id": "categorizeReview",
@@ -45,7 +45,7 @@
   },
   {
     "prompt_id": "profanityDetection",
-    "prompt_feature": "Check the paragraph for profanity words and determine if the content or topic is child-friendly."
+    "prompt_feature": "Check the paragraph for profanity words. Only answer with yes or no and nothing more and output it in json format {answer: []}. The next sentence or paragraph is the input: "
   },
   {
     "prompt_id": "issuePriotization",

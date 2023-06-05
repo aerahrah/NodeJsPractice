@@ -49,7 +49,12 @@ const promptFeature = (processMessages) => async (req, res) => {
 
             const response = await processMessages(req, messages);
 
-            res.json({ message: response });
+            res.json({
+              prompt: promptFeature,
+              userinput: csvDataString,
+              generatedPrompt: `${promptFeature} ${csvDataString}`,
+              response: response,
+            });
           });
       });
     } else {
@@ -63,7 +68,12 @@ const promptFeature = (processMessages) => async (req, res) => {
       console.log(messages);
       const response = await processMessages(req, messages);
 
-      res.json({ message: response });
+      res.json({
+        prompt: promptFeature,
+        userinput: message,
+        generatedPrompt: `${promptFeature} ${message}`,
+        response: response,
+      });
     }
   } catch (error) {
     console.error("Error:", error);

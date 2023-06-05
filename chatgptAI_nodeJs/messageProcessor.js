@@ -3,6 +3,8 @@ require("dotenv").config();
 const Conversation = require("./models/conversationSchema");
 
 async function processMessages(req, messages) {
+  const fetch = (await import("node-fetch")).default;
+
   const userId = req.user.id;
   console.log(`userId  ${userId}`);
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
