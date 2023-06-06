@@ -11,15 +11,18 @@ require("dotenv").config();
 
 app.use(express.json());
 app.use(fileUpload());
+
 app.use("/auth", authRouter);
 
 const getConversationRoute = require("./routes/GetConversationRoute");
 const promptFeatures = require("./routes/mainPromptRoute");
 const promptCreate = require("./routes/PromptRoute");
+const accountRoute = require("./routes/getKeyRoute.js");
 
 app.use("/getConversation", getConversationRoute);
 app.use("/prompt", promptCreate);
 app.use("/feature", promptFeatures);
+app.use("/account", accountRoute);
 
 const start = async () => {
   try {
