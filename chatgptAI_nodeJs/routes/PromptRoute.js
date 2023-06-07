@@ -8,7 +8,7 @@ const {
   updateById,
 } = require("../controllers/promptController");
 
-router.post("/list", async (req, res) => {
+router.get("/list", async (req, res) => {
   try {
     const allPrompts = await getPromptAllFeatures();
     res.status(201).json(allPrompts);
@@ -27,7 +27,7 @@ router.post("/create", async (req, res) => {
   }
 });
 //router for fetching all of the prompts
-router.post("/read", async (req, res) => {
+router.get("/read", async (req, res) => {
   try {
     const response = await getAllPrompts();
     console.log(response);
@@ -37,7 +37,7 @@ router.post("/read", async (req, res) => {
   }
 });
 //router for updating a prompt
-router.post("/update", async (req, res) => {
+router.put("/update", async (req, res) => {
   try {
     const promptId = req.body.promptId;
     const promptString = req.body.promptString;
@@ -50,7 +50,7 @@ router.post("/update", async (req, res) => {
 });
 
 //router for deleting a prompt
-router.post("/delete", async (req, res) => {
+router.delete("/delete", async (req, res) => {
   try {
     const promptId = req.body.promptId;
     const response = await deleteById(promptId);

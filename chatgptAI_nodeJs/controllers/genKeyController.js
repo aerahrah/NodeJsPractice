@@ -23,7 +23,7 @@ const createApiKey = async (req, res) => {
 
   if (getId) {
     const response = await insertApiKey(getId);
-    res.send(response);
+    res.status(201).json({generatedKey: response.apiKey})
   }
 };
 

@@ -1,39 +1,39 @@
 [
   {
     "prompt_id": "customerReviewInsight",
-    "prompt_feature": "Given the data below,  generate the customer review insight of the review. Output in JSON data in this format, remove the 'insight', and remove all unnecessary spaces: {answer: []} Generate an insight of this review. "
+    "prompt_feature": "Given the data below,  Generate a customer review insight of the review. Output in JSON data in this format  {[]} Generate an insight of this review. "
   },
   {
     "prompt_id": "generateMediaPost",
-    "prompt_feature": "Generate social media marketing post of this data and output it in json format {answer: []}."
+    "prompt_feature": "Generate social media marketing post of this data and output it in json format {[]}."
   },
     {
     "prompt_id": "generateRevenueInsight",
-    "prompt_feature": "Generate a revenue activity insight by category to the given data set and output it in json format {answer: []}.. File Content:"
+    "prompt_feature": "Generate a revenue activity insight by category to the given data set and output it in json format {[]}.. File Content:"
   },
   {
     "prompt_id": "generateSeoKeywords",
-    "prompt_feature": "Given the provided data, generate a list of related SEO keywords. Format the output as follows: { 'keywords': [] }"
+    "prompt_feature": "Given the provided data, generate a list of related SEO keywords. Format the output as JSON format: {[]}"
   },
     {
     "prompt_id": "generateSeoKeywordsCSV",
-    "prompt_feature": "Generate SEO keyword for every products on this list. Include the name alongside its SEO keyword Output in JSON data and in this format:{ keywords: [] } "
+    "prompt_feature": "Generate SEO keyword for every products on this list. Include the name alongside its SEO keyword Output in JSON data and in this format:{[]} "
   },
   {
     "prompt_id": "productCopyRecommendation",
-    "prompt_feature": "Recommend me twenty product copy of data below with NO description with this format and output it in json format {answer: [ProductOne: ' ',  ProductTwo: ' ',  ProductThree: ' ' ]}. "
+    "prompt_feature": "Generate twenty product copy of data below with NO description with this format and output it in json format {[]}. This is the product: "
   },  
   {
     "prompt_id": "productCopyRecommendationCSV",
-    "prompt_feature": "Recommend list of twenty product copy WITHOUT DESCRIPTION using this data set, using format like this and output it in json format {answer: [ProductOne: ' ',  ProductTwo: ' ',  ProductThree: ' ' ]}.  "
+    "prompt_feature": "Generate list of twenty product copy WITHOUT DESCRIPTION using this data set, using format like this and output it in json format {[]}. This is the product: "
   },
   {
     "prompt_id": "generateUserAcquisition",
-    "prompt_feature": "Generate insights of this user acquisition activity of this data and output it in json format {answer: []}."
+    "prompt_feature": "Generate insights of this user acquisition activity of this data and output it in json format {[]}."
   },
   {
     "prompt_id": "categorizeReview",
-    "prompt_feature": "Given the Data below, categorize the review into positive, negative, mixed, or neutral. The answer should only be 'Positive', 'Negative', 'Mixed', or 'Neutral'. Output in JSON data in this format:{ answer: [] }, the next sentence is the review."
+    "prompt_feature": "Given the Data below, categorize the review into positive, negative, mixed, or neutral. The RESPONSE should only be 'Positive', 'Negative', 'Mixed', or 'Neutral'.Don't include any sentence other than 'Positive', 'Negative', 'Mixed', or 'Neutral' and Output in JSON data in this format: {[]} "
   },
   {
     "prompt_id": "productFeatureSuggestionOne",
@@ -45,14 +45,14 @@
   },
   {
     "prompt_id": "profanityDetection",
-    "prompt_feature": "Check the paragraph for profanity words. Only answer with yes or no and nothing more and output it in json format {answer: []}. The next sentence or paragraph is the input: "
+    "prompt_feature": "Check the paragraph for profanity words. Only answer with Yes or No and nothing more. The next sentence or paragraph is the input: "
   },
   {
     "prompt_id": "issuePriotization",
-    "prompt_feature": "Develop a feature to prioritize a list of issues based on their impact and urgency. Assign a priority score to each issue, ranging from 1 to 10, where a higher score indicates a higher priority. Consider factors such as issue severity, potential impact, urgency, and available resources. Output the prioritized issues with their corresponding priority scores in JSON format: { prioritizedIssues: []}"
+    "prompt_feature": "Develop a feature to prioritize a list of issues based on their impact and urgency. Assign a priority score to each issue, ranging from 1 to 10, where a higher score indicates a higher priority. Consider factors such as issue severity, potential impact, urgency, and available resources. Output the prioritized issues with their corresponding priority scores in JSON format: {[]}"
   },
   {
     "prompt_id": "fakeUserDetailChecker",
-    "prompt_feature": "Check this details and it should be based from Philippines check if this is fake or spam and computer generated: "
+    "prompt_feature": "Check this details and it should be based from Philippines check if this is fake or spam and computer generated, and output it in json format {[]}"
   }
 ]
