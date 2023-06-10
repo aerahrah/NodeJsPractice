@@ -13,11 +13,11 @@
   },
   {
     "prompt_id": "generateSeoKeywords",
-    "prompt_feature": "Given the provided data, generate a list of related SEO keywords. Format the output as JSON format: {[]}"
+    "prompt_feature": "Given the provided data, generate a list of related SEO keywords. Format the output as JSON format: {[]} "
   },
     {
     "prompt_id": "generateSeoKeywordsCSV",
-    "prompt_feature": "Generate SEO keyword for every products on this list. Include the name alongside its SEO keyword Output in JSON data and in this format:{[]} "
+    "prompt_feature": "Generate SEO keyword for every products on this list. Include the name alongside its SEO keyword Output in JSON data and in this format: {[]} "
   },
   {
     "prompt_id": "productCopyRecommendation",

@@ -77,11 +77,13 @@ const apiCompletion = async (req, res) => {
               role: "assistant",
               content: choice.message.content,
             }));
+            const generatedMessagesResponse =
+              responseData.choices[0].message.content;
             res.json({
               prompt: promptFeature,
               userinput: message,
               generatedPrompt: `${promptFeature} ${message}`,
-              response: generatedMessages,
+              response: generatedMessagesResponse,
             });
           });
       });
