@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const authenticate = require("../middleware/authValidation");
-const printHello = require("../controllers/movieListController");
+const printHello = require("../controllers/quoteController");
 
-router.get("/movieList", authenticate, printHello);
+router.get("/generate", printHello);
 
 module.exports = router;

@@ -1,16 +1,17 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const connectDb = require("./db/connectionDb");
 const port = 3500;
 require("dotenv").config();
 
 app.use(express.json());
-
+app.use(cors());
 const auth = require("./router/authRouter");
-const movieList = require("./router/movieListController");
+const quoteGenerator = require("./router/quoteController");
 
 app.use("/auth", auth);
-app.use("/", movieList);
+app.use("/quote", quoteGenerator);
 
 const start = async () => {
   try {
