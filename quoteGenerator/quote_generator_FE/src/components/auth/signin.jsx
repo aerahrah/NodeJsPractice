@@ -1,7 +1,9 @@
 import { useState } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signin = () =>{
+    const navigate = useNavigate();
     const url ="http://localhost:3500/";
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -13,8 +15,9 @@ const Signin = () =>{
             const {message, token} = response.data;
             setMessage(message);
             Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            navigate("/quote-generator");
         } catch (error) {
-            setMessage(error.response.data.message);
+            console.log(error.response.data.message);
         }
     }
 

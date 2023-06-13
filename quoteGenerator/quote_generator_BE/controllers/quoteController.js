@@ -2,7 +2,9 @@ const axios = require("axios");
 require("dotenv").config();
 const printHello = async (req, res) => {
   try {
-    const category = "happiness";
+    const { selectedValue } = req.query;
+    console.log(selectedValue);
+    const category = selectedValue;
     const apiKey = process.env.API_KEY; // Replace with your actual API key
 
     const response = await axios.get(
