@@ -19,7 +19,7 @@ const QuoteGenerator = () =>{
 
 
   return <>
-    {console.log(quoteData)}
+    {/* {console.log(quoteData[0].author)} */}
   </>; 
 };
 

@@ -14,7 +14,7 @@ const printHello = async (req, res) => {
       }
     );
 
-    res.json(response.data);
+    return res.json(response.data);
   } catch (error) {
     console.error("Request failed:", error.message);
   }

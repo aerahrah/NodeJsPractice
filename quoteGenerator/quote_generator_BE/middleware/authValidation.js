@@ -8,7 +8,7 @@ const authenticate = (req, res, next) => {
   const token = authHeader?.split(" ")[1];
 
   if (!token) {
-    res.status(401).send({ message: "unauthorized" });
+    return res.status(401).send({ message: "unauthorized" });
   }
   try {
     const decodedToken = jwt.verify(token, secretKey);
@@ -16,7 +16,7 @@ const authenticate = (req, res, next) => {
     req.user = id;
     next();
   } catch (error) {
-    res.status(401).send({ message: "unauthorized" });
+    return res.status(401).send({ message: "unauthorized" });
   }
 };
 

@@ -3,6 +3,6 @@ const router = express.Router();
 const authenticate = require("../middleware/authValidation");
 const printHello = require("../controllers/quoteController");
 
-router.get("/generate", printHello);
+router.get("/generate", authenticate, printHello);
 
 module.exports = router;
