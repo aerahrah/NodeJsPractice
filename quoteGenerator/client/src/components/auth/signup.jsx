@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 import { Link } from "react-router-dom";
-
+import Timer from "../utils/messageTimeout";
 const Signup = () =>{
     const url ="http://localhost:3500/";
     const [username, setUsername] = useState('')
@@ -17,7 +17,6 @@ const Signup = () =>{
             setMessage(error.response.data.message)
         }
     }
-
     return (
         <>
             <div>
@@ -37,7 +36,12 @@ const Signup = () =>{
                 <button onClick={handleSignup}>Sign up</button>
                 <Link to = "/signin">sign in</Link>
             </div>
-            {message && <p>{message}</p>}
+            {message && (
+                <>
+                <p>{message}</p>
+                <Timer message={message} setMessage={setMessage} />
+                </>
+           )}
         </>
     )
 }

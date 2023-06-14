@@ -5,6 +5,7 @@ const printHello = async (req, res) => {
     const { selectedValue } = req.query;
     console.log(selectedValue);
     const category = selectedValue;
+    console.log(category);
     const apiKey = process.env.API_KEY; // Replace with your actual API key
 
     const response = await axios.get(

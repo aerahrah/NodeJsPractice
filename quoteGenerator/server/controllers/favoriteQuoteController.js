@@ -6,7 +6,8 @@ const FavoriteQuote = require("../model/favoriteQuote");
 // };
 const getAllQuotes = async (req, res) => {
   try {
-    const allQuotes = await FavoriteQuote.find({});
+    const getId = req.user;
+    const allQuotes = await FavoriteQuote.find({ user: getId });
     if (allQuotes) {
       const allQuotesMap = allQuotes.map((quotes) => ({
         Quote: quotes.author,
@@ -23,7 +24,7 @@ const getAllQuotes = async (req, res) => {
 
 const addQuotes = async (req, res) => {
   try {
-    const { quoteData, authorData } = req.query;
+    const { quoteData, authorData } = req.body;
     const getId = req.user;
     if (getId) {
       const createQuote = new FavoriteQuote({
@@ -31,8 +32,8 @@ const addQuotes = async (req, res) => {
         quote: quoteData,
         author: authorData,
       });
-      const response = await createQuote.save();
-      res.json(response);
+      await createQuote.save();
+      res.status(200).send({ message: "Quote saved successfully" });
     } else {
       return res.status(400).json({ error: "Invalid user ID" });
     }

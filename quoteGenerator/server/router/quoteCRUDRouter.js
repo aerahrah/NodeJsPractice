@@ -7,6 +7,6 @@ const {
 } = require("../controllers/favoriteQuoteController");
 
 router.post("/add", authenticate, addQuotes);
-router.get("/get-all", getAllQuotes);
+router.get("/get-all", authenticate, getAllQuotes);
 
 module.exports = router;

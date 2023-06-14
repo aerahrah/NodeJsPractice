@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { setCookie, getCookie } from "../utils/cookieUtils";
 
 const Signin = () =>{
     const navigate = useNavigate();
@@ -14,15 +15,15 @@ const Signin = () =>{
             const response = await Axios.post(`${url}auth/signin`, {username: username, password: password})
             const {message, token} = response.data;
             setMessage(message);
-            Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            setCookie("token", token, 1)
             navigate("/quote-generator");
         } catch (error) {
             console.log(error.response.data.message);
         }
     }
-
     return (<>
         <div>
+            <h1>Sign In</h1>
             <input 
             type="text" 
             value={username}
