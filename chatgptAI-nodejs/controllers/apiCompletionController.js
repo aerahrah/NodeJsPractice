@@ -1,7 +1,10 @@
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config();
 const csvParser = require("csv-parser");
 const fs = require("fs");
-const { getPromptFeature } = require("../controllers/promptController");
+const {
+  getPromptFeature,
+  getResponseFormat,
+} = require("../controllers/promptController");
 
 const apiCompletion = async (req, res) => {
   const fetch = (await import("node-fetch")).default;
@@ -17,6 +20,7 @@ const apiCompletion = async (req, res) => {
 
   try {
     const promptFeature = await getPromptFeature(promptId);
+    const responseFormat = await getResponseFormat(promptId);
 
     if (promptType === "csv") {
       if (!req.files || !req.files.file) {
@@ -52,9 +56,12 @@ const apiCompletion = async (req, res) => {
           })
           .on("end", async () => {
             fs.unlinkSync(filePath);
+            const completePromptString = promptFeature
+              .replace("(user_input)", csvDataString)
+              .replace("(response_format)", responseFormat);
             messages.push({
               role: "user",
-              content: `${promptFeature} ${csvDataString}`,
+              content: completePromptString,
             });
 
             const response = await fetch(
@@ -62,8 +69,7 @@ const apiCompletion = async (req, res) => {
               {
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization:
-                    "Bearer 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",
+                  Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
                 },
                 method: "POST",
                 body: JSON.stringify({
@@ -72,37 +78,38 @@ const apiCompletion = async (req, res) => {
                 }),
               }
             );
+
             const responseData = await response.json();
-            const generatedMessages = responseData.choices.map((choice) => ({
-              role: "assistant",
-              content: choice.message.content,
-            }));
             const generatedMessagesResponse =
               responseData.choices[0].message.content;
             res.json({
               prompt: promptFeature,
               userinput: message,
-              generatedPrompt: `${promptFeature} ${message}`,
+              responseFormat: responseFormat,
+              generatedPrompt: completePromptString,
               response: generatedMessagesResponse,
             });
           });
       });
     } else {
       const upcomingMessage = [];
+      const completePromptString = promptFeature
+        .replace("(user_input)", message)
+        .replace("(response_format)", responseFormat);
       let messages = {
         role: "user",
-        content: `${promptFeature} ${message}`,
+        content: completePromptString,
       };
       if (message !== "" || message === undefined || message === null) {
-        upcomingMessage.push(messages); // push to the array every objects that is made by the user
+        upcomingMessage.push(messages);
       }
+
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization:
-              "Bearer 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",
+            Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
           },
           method: "POST",
           body: JSON.stringify({
@@ -111,16 +118,14 @@ const apiCompletion = async (req, res) => {
           }),
         }
       );
+
       const responseData = await response.json();
-      const generatedMessages = responseData.choices.map((choice) => ({
-        role: "assistant",
-        content: choice.message.content,
-      }));
       const generatedMessagesResponse = responseData.choices[0].message.content;
       res.json({
         prompt: promptFeature,
         userinput: message,
-        generatedPrompt: `${promptFeature} ${message}`,
+        responseFormat: responseFormat,
+        generatedPrompt: completePromptString,
         response: generatedMessagesResponse,
       });
     }

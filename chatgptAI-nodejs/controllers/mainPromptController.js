@@ -1,12 +1,16 @@
 const csvParser = require("csv-parser");
 const fs = require("fs");
-const { getPromptFeature } = require("../controllers/promptController");
+const {
+  getPromptFeature,
+  getResponseFormat,
+} = require("../controllers/promptController");
 
 const promptFeature = (processMessages) => async (req, res) => {
   const { promptId, message, promptType } = req.body;
 
   try {
     const promptFeature = await getPromptFeature(promptId);
+    const responseFormat = await getResponseFormat(promptId);
 
     if (promptType === "csv") {
       if (!req.files || !req.files.file) {
@@ -42,27 +46,34 @@ const promptFeature = (processMessages) => async (req, res) => {
           })
           .on("end", async () => {
             fs.unlinkSync(filePath);
+            const completePromptString = promptFeature
+              .replace("(user_input)", csvDataString)
+              .replace("(response_format)", responseFormat);
             messages.push({
               role: "user",
-              content: `${promptFeature} ${csvDataString}`,
+              content: completePromptString,
             });
 
             const response = await processMessages(req, messages);
 
             res.json({
               prompt: promptFeature,
-              userinput: csvDataString,
-              generatedPrompt: `${promptFeature} ${csvDataString}`,
+              userinput: message,
+              responseFormat: responseFormat,
+              generatedPrompt: completePromptString,
               response: response,
             });
           });
       });
     } else {
-      console.log(promptFeature);
+      const completePromptString = promptFeature
+        .replace("(user_input)", message)
+        .replace("(response_format)", responseFormat);
+
       const messages = [
         {
           role: "user",
-          content: `${promptFeature} ${message}`,
+          content: completePromptString,
         },
       ];
       console.log(messages);
@@ -71,7 +82,8 @@ const promptFeature = (processMessages) => async (req, res) => {
       res.json({
         prompt: promptFeature,
         userinput: message,
-        generatedPrompt: `${promptFeature} ${message}`,
+        responseFormat: responseFormat,
+        generatedPrompt: completePromptString,
         response: response,
       });
     }

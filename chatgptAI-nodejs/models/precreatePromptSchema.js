@@ -9,6 +9,10 @@ const promptSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  response_format: {
+    type: String,
+    required: true,
+  }
 });
 
 const Prompt = mongoose.model("Prompts", promptSchema);

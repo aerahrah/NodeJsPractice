@@ -16,16 +16,19 @@ router.get("/list", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 router.post("/create", async (req, res) => {
   try {
     const promptId = req.body.promptId;
     const promptString = req.body.promptString;
-    await createPrompt(promptId, promptString);
-    res.json({ message: "Prompt created successfully" });
+    const responseFormat = req.body.responseFormat;
+    const creation = await createPrompt(promptId, promptString,responseFormat);
+    return creation.errorDisplay === null ? res.status(201).json({ message: "Prompt created successfully" }):res.status(501).json({ message: creation.errorDisplay });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 //router for fetching all of the prompts
 router.get("/read", async (req, res) => {
   try {
@@ -41,9 +44,10 @@ router.put("/update", async (req, res) => {
   try {
     const promptId = req.body.promptId;
     const promptString = req.body.promptString;
-    const response = await updateById(promptId, promptString);
-    console.log(response);
-    res.status(201).json({ message: "Prompt Update successfully" });
+    const responseFormat = req.body.responseFormat
+    const response = await updateById(promptId, promptString,responseFormat);
+    console.log(response,"Updated Succesfully");
+    res.status(201).json({ message: "Prompt Updated successfully" });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
