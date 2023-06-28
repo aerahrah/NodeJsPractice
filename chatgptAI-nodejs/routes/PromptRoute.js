@@ -22,8 +22,10 @@ router.post("/create", async (req, res) => {
     const promptId = req.body.promptId;
     const promptString = req.body.promptString;
     const responseFormat = req.body.responseFormat;
-    const creation = await createPrompt(promptId, promptString,responseFormat);
-    return creation.errorDisplay === null ? res.status(201).json({ message: "Prompt created successfully" }):res.status(501).json({ message: creation.errorDisplay });
+    const creation = await createPrompt(promptId, promptString, responseFormat);
+    return creation.errorDisplay === undefined
+      ? res.status(201).json({ message: "Prompt created successfully" })
+      : res.status(501).json({ message: creation.errorDisplay });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -44,9 +46,9 @@ router.put("/update", async (req, res) => {
   try {
     const promptId = req.body.promptId;
     const promptString = req.body.promptString;
-    const responseFormat = req.body.responseFormat
-    const response = await updateById(promptId, promptString,responseFormat);
-    console.log(response,"Updated Succesfully");
+    const responseFormat = req.body.responseFormat;
+    const response = await updateById(promptId, promptString, responseFormat);
+    console.log(response, "Updated Succesfully");
     res.status(201).json({ message: "Prompt Updated successfully" });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

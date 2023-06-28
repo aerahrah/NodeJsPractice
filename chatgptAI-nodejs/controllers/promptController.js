@@ -50,17 +50,16 @@ async function getPromptAllFeatures() {
 
 async function createPrompt(promptId, promptString, newFormat) {
   try {
-    const checkOne = await Prompt.find({prompt_id:promptId})
+    const checkOne = await Prompt.find({ prompt_id: promptId });
     let error = {};
-    if(checkOne !== undefined) {
-      error = {errorDisplay:"Prompt ID already Exist!"};
-      console.log(error);
+    if (checkOne.length > 0) {
+      error = { errorDisplay: "Prompt ID already Exist!" };
       return error;
     } else {
       const prompt = new Prompt({
-      prompt_id: promptId,
-      prompt_feature: promptString,
-      response_format: newFormat,
+        prompt_id: promptId,
+        prompt_feature: promptString,
+        response_format: newFormat,
       });
       return await prompt.save();
     }
@@ -68,7 +67,6 @@ async function createPrompt(promptId, promptString, newFormat) {
     console.error("Error retrieving prompt feature:", error);
     throw error;
   }
-  
 }
 // function for getting all the prompts in the database
 async function getAllPrompts() {
@@ -102,20 +100,24 @@ async function deleteById(promptId) {
 //update prompt by promptid
 async function updateById(promptId, newPrompt, newFormat) {
   try {
-    const query = { prompt_id:promptId };
+    const query = { prompt_id: promptId };
     let prompt;
-    if(newPrompt !== undefined && newFormat === undefined) {
-      prompt = await Prompt.findOneAndUpdate(query,{
-        prompt_feature : newPrompt });
-    return prompt
-    } else if (newPrompt === undefined && newFormat !== undefined) {
-      prompt = await Prompt.findOneAndUpdate(query,{
-        response_format : newFormat });
-    return prompt
-    } else {
-      prompt = await Prompt.findOneAndUpdate(query,{prompt_feature : newPrompt , response_format : newFormat });
-      if (prompt) 
+    if (newPrompt !== undefined && newFormat === undefined) {
+      prompt = await Prompt.findOneAndUpdate(query, {
+        prompt_feature: newPrompt,
+      });
       return prompt;
+    } else if (newPrompt === undefined && newFormat !== undefined) {
+      prompt = await Prompt.findOneAndUpdate(query, {
+        response_format: newFormat,
+      });
+      return prompt;
+    } else {
+      prompt = await Prompt.findOneAndUpdate(query, {
+        prompt_feature: newPrompt,
+        response_format: newFormat,
+      });
+      if (prompt) return prompt;
     }
   } catch (error) {
     console.error("Error retrieving prompt feature:", error);

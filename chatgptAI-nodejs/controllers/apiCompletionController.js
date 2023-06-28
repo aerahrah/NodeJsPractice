@@ -45,17 +45,26 @@ const apiCompletion = async (req, res) => {
 
         let csvDataString = "";
         const messages = [];
-        console.log(csvDataString);
+        const columnData = {};
         fs.createReadStream(filePath)
           .pipe(csvParser())
           .on("data", (data) => {
-            const message = data.Names;
-            if (message) {
-              csvDataString += `${message} \n`;
+            for (const column in data) {
+              const value = data[column];
+              if (!columnData[column]) {
+                columnData[column] = [];
+              }
+              if (value) {
+                columnData[column].push(value);
+              }
             }
           })
           .on("end", async () => {
             fs.unlinkSync(filePath);
+            for (const column in columnData) {
+              const values = columnData[column];
+              csvDataString += `${column}: ${values.join(", ")}\n`;
+            }
             const completePromptString = promptFeature
               .replace("(user_input)", csvDataString)
               .replace("(response_format)", responseFormat);
